@@ -145,5 +145,9 @@ func (r *rancherTemplates) getConfig(files []string) error {
 		}
 	}
 
+	if len(files) ==0 { 
+		log.Fatal("No template config file found.") 
+	}
+
 	return err
 }
