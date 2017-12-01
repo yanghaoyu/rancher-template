@@ -1,5 +1,3 @@
-[![](https://images.microbadger.com/badges/image/rawmind/rancher-template.svg)](https://microbadger.com/images/rawmind/rancher-template "Get your own image badge on microbadger.com")
-
 rancher-template
 =====================
 
