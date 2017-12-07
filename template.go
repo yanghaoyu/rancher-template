@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"gopkg.in/yaml.v2"
 	"crypto/sha256"
-	//"os"
+	"strings"
 	"os/exec"
 	"text/template"
 	"path/filepath"
@@ -34,6 +34,8 @@ func (r *rancherTemplate) getConfig(file string) error {
 	}
 
 	_, r.Name = filepath.Split(r.Source)
+
+	r.Hash = r.getDestinationHash()
 
 	return err
 }
@@ -83,10 +85,27 @@ func (r *rancherTemplate) doAction() {
 	}
 }
 
+func (r *rancherTemplate) getTemplateFunc() template.FuncMap{
+	return template.FuncMap{
+		"split": func (s, sep string) []string {
+			return strings.Split(s, sep)
+		},
+		"replace": func (s, old, new string) string {
+			return strings.Replace(s, old, new , -1)
+		},
+		"tolower": func (s string) string {
+			return strings.ToLower(s)
+		},
+		"ishealthy": func (s string) bool {
+			return strings.Contains(s, "healthy")
+		},
+	}
+}
+
 func (r *rancherTemplate) execute(data interface{}) {
 	log.WithField("file", r.Source).Debug("Executing template.")
-	t := template.New(r.Name)
-	t, err := t.ParseFiles(r.Source)
+
+	t, err := template.New(r.Name).Funcs(r.getTemplateFunc()).ParseFiles(r.Source)
 	if err != nil {
 		log.WithFields(log.Fields{"file": r.Source, "error": err}).Error("Failed parsing template.")
 		return

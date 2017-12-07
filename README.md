@@ -16,7 +16,7 @@ CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-extldflags "-static"' -o rancher
 
 ## Versions
 
-- [0.2](https://github.com/rawmind0/rancher-template/blob/0.2/Dockerfile)
+- [0.3](https://github.com/rawmind0/rancher-template/blob/0.3/Dockerfile)
 
 
 ## Usage
@@ -44,6 +44,16 @@ Usage of rancher-template:
   -url string
       Rancher metadata url. (default "http://rancher-metadata.rancher.internal")
 ```
+
+## Custom functions
+
+Added some custom functions to golang templates
+
+- "split" `func split(s, sep string) []string`
+- "replace" `func replace(s, old, new string) []string`
+- "tolower" `func(s string) string`
+- "ishealthy" `func (s string) bool`
+
 
 ## Templates 
 

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"io"
 	"os/signal"
 	"sync"
 	"sort"
@@ -237,7 +238,9 @@ func (m *rancherMetadata) init() {
 	}
 	defer log_file.Close()
 
-	log.SetOutput(log_file)
+	multi := io.MultiWriter(log_file, os.Stdout)
+
+	log.SetOutput(multi)
 
 	log.Info("Initializing Rancher metadata")
 
