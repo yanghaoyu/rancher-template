@@ -16,7 +16,7 @@ CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-extldflags "-static"' -o rancher
 
 ## Versions
 
-- [0.3](https://github.com/rawmind0/rancher-template/blob/0.3/Dockerfile)
+- [0.3-1](https://github.com/rawmind0/rancher-template/blob/0.3-1/Dockerfile)
 
 
 ## Usage
@@ -26,23 +26,23 @@ Rancher-template get stacks info from rancher metadata service and execute golan
 It refresh data in real time, updating templates if content change. An action could also be defined, `command` to be exectued when template content changes. 
 E.g. Restart a service if config changes.
 
-These are options and parameters that could be set.
+These are options and parameters that could be set. Env vars overwrite parameters values.
 ```
 Usage of rancher-template:
   -debug
-      Run in debug mode.
+      Run in debug mode. Env var `RANCHER_TEMPLATE_DEBUG`
   -logfile string
-      Rancher template log fie. (default "/proc/1/fd/1")
+      Rancher template log fie. (default "/opt/tools/rancher-template/log/rancher-template.log"). Env var `RANCHER_TEMPLATE_LOGFILE`
   -prefix string
-      Rancher metadata prefix. (default "2016-07-29")
+      Rancher metadata prefix. (default "2016-07-29"). Env var `RANCHER_TEMPLATE_PREFIX`
   -refresh int
-      Rancher metadata refresh time in seconds. (default 300)
+      Rancher metadata refresh time in seconds. (default 300). Env var `RANCHER_TEMPLATE_REFRESH`
   -self
-      Get self stack data or all.
+      Get self stack data or all. Env var `RANCHER_TEMPLATE_SELF`
   -templates string
-      Template files, wildcard allowed between quotes. (default "/opt/tools/rancher-template/etc/*.yml")
+      Template files, wildcard allowed between quotes. (default "/opt/tools/rancher-template/etc/*.yml"). Env var `RANCHER_TEMPLATE_FILES`
   -url string
-      Rancher metadata url. (default "http://rancher-metadata.rancher.internal")
+      Rancher metadata url. (default "http://rancher-metadata.rancher.internal"). Env var `RANCHER_TEMPLATE_URL`
 ```
 
 ## Custom functions
@@ -52,7 +52,9 @@ Added some custom functions to golang templates
 - "split" `func split(s, sep string) []string`
 - "replace" `func replace(s, old, new string) []string`
 - "tolower" `func(s string) string`
+- "contains": `func (s, c string) bool`
 - "ishealthy" `func (s string) bool`
+- "isrunning": `func (s string) bool`
 
 
 ## Templates 

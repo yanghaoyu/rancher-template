@@ -29,7 +29,7 @@ func (p *Params) init() {
 
 	flag.StringVar(&p.Url, "url", "http://rancher-metadata.rancher.internal", "Rancher metadata url. RANCHER_TEMPLATE_URL")
 	flag.StringVar(&p.Prefix, "prefix", "2016-07-29", "Rancher metadata prefix. RANCHER_TEMPLATE_PREFIX")
-	flag.StringVar(&p.Logfile, "logfile", "/proc/1/fd/1", "Rancher template log fie. RANCHER_TEMPLATE_LOGFILE")
+	flag.StringVar(&p.Logfile, "logfile", "/opt/tools/rancher-template/log/rancher-template.log", "Rancher template log fie. RANCHER_TEMPLATE_LOGFILE")
 	flag.StringVar(&file_path, "templates", "/opt/tools/rancher-template/etc/*.yml", "Templates config files, wildcard allowed between quotes. RANCHER_TEMPLATE_FILES")
 	flag.IntVar(&p.Refresh, "refresh", 300, "Rancher metadata refresh time in seconds. RANCHER_TEMPLATE_REFRESH")
 	flag.BoolVar(&p.Self, "self", false, "Get self stack data or all. RANCHER_TEMPLATE_SELF")

@@ -232,7 +232,7 @@ func (m *rancherMetadata) run() {
 }
 
 func (m *rancherMetadata) init() {
-	log_file, err := os.OpenFile(m.Logfile, os.O_WRONLY | os.O_CREATE, 0755)
+	log_file, err := os.OpenFile(m.Logfile, os.O_WRONLY | os.O_CREATE, 0644)
 	if err != nil {
     	log.WithFields(log.Fields{"file": m.Logfile, "error": err}).Fatal("Failed opening log file.")
 	}

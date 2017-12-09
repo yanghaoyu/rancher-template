@@ -43,7 +43,6 @@ func (r *rancherTemplate) getConfig(file string) error {
 func (r *rancherTemplate) getDestinationHash() string {
   	content, err := ioutil.ReadFile(r.Destination)
 	if err != nil {
-		log.WithFields(log.Fields{"file": r.Destination, "error": err}).Error("Failed reading file.")
 		return ""
 	} 
 
@@ -96,8 +95,14 @@ func (r *rancherTemplate) getTemplateFunc() template.FuncMap{
 		"tolower": func (s string) string {
 			return strings.ToLower(s)
 		},
+		"contains": func (s, c string) bool {
+			return strings.Contains(s, c)
+		},
 		"ishealthy": func (s string) bool {
 			return strings.Contains(s, "healthy")
+		},
+		"isrunning": func (s string) bool {
+			return strings.Contains(s, "running")
 		},
 	}
 }
@@ -155,9 +160,10 @@ func (r *rancherTemplates) execute(data interface{}) {
 }
 
 func (r *rancherTemplates) getConfig(files []string) error {
-	var temp = &rancherTemplate{}
 	var err error
 	for _, file := range files {
+		var temp = &rancherTemplate{}
+
 		err = temp.getConfig(file)
 		if err == nil {
 			r.rancherTemplates = append(r.rancherTemplates, temp)
