@@ -16,7 +16,7 @@ CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-extldflags "-static"' -o rancher
 
 ## Versions
 
-- [0.3-1](https://github.com/rawmind0/rancher-template/blob/0.3-1/Dockerfile)
+- [0.3-2](https://github.com/rawmind0/rancher-template/blob/0.3-2/Dockerfile)
 
 
 ## Usage
