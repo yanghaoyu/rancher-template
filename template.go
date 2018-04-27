@@ -7,6 +7,7 @@ import (
 	"crypto/sha256"
 	"strings"
 	"os/exec"
+	"os"
 	"text/template"
 	"path/filepath"
 	"bytes"
@@ -94,6 +95,9 @@ func (r *rancherTemplate) getTemplateFunc() template.FuncMap{
 		},
 		"tolower": func (s string) string {
 			return strings.ToLower(s)
+		},
+		"getenv": func (s string) string {
+			return os.Getenv(s)
 		},
 		"contains": func (s, c string) bool {
 			return strings.Contains(s, c)
